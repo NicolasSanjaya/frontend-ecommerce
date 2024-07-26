@@ -1,0 +1,16 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__form {
+    width: 40%;
+    height: 70%;
+    background-image: linear-gradient(
+      to bottom right,
+      rgba(255, 255, 255, 0.5),
+      var(--secondary)
+    );
+  }
+}
