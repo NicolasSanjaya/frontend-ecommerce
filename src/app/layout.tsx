@@ -1,8 +1,16 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { UserProvider } from "@/context/user";
 
 const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +24,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+        <link
+          rel="stylesheet"
+          type="text/css"
+          charSet="UTF-8"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        />
+        <link
+          rel="stylesheet"
+          type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+        />
+      </head>
+      <body className={poppins.className}>
+        <ToastContainer
+          autoClose={3000}
+          position="top-right"
+          theme="light"
+          closeOnClick={false}
+          pauseOnHover={false}
+        />
+        <UserProvider>{children}</UserProvider>
+      </body>
     </html>
   );
 }

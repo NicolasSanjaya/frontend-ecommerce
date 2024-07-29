@@ -1,64 +1,74 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useContext, useState } from "react";
-import styles from "./Login.module.scss";
+import React, { useState } from "react";
+import styles from "./Register.module.scss";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 import { MdEmail } from "react-icons/md";
 import { RiLockPasswordFill } from "react-icons/ri";
 import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
-import { UserContext } from "@/context/user";
-import { UserType } from "@/types/User";
+import { IoMdPerson } from "react-icons/io";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const { user, setUser }: any = useContext(UserContext);
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+
+    const name = formData.get("name");
     const email = formData.get("email");
     const password = formData.get("password");
+    const confirmPassword = formData.get("confirmPassword");
+
+    if (password !== confirmPassword) {
+      toast.error("Password does not match");
+      form.reset();
+      return;
+    }
 
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:4000/user/login", {
+      const response = await fetch("http://localhost:4000/user/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         credentials: "include",
         body: JSON.stringify({
+          name,
           email,
           password,
+          phone: "",
+          address: "",
         }),
       });
       const data = await response.json();
-      setUser(data.data);
       setIsLoading(false);
-      toast.success(data.message);
-
+      toast.success("success");
       console.log(data);
       if (data.statusCode === 200) {
-        router.push("/");
+        router.push("/login");
       }
     } catch (error: Error | any) {
       setIsLoading(false);
       toast.error(error.message);
       console.log(error);
     }
+    form.reset();
   };
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.container__title}>Login</h1>
+      <h1 className={styles.container__title}>Register</h1>
       <div className={styles.container__content}>
         <form
-          onSubmit={handleLogin}
+          onSubmit={handleRegister}
           className={styles.container__content__form}
         >
+          <Input text="Name" type="text" name="name" icon={<IoMdPerson />} />
           <Input text="Email" type="email" name="email" icon={<MdEmail />} />
           <Input
             text="Password"
@@ -66,13 +76,16 @@ const LoginPage = () => {
             name="password"
             icon={<RiLockPasswordFill />}
           />
+          <Input
+            text="Confirm Password"
+            type="password"
+            name="confirm-password"
+            icon={<RiLockPasswordFill />}
+          />
           <p>
-            Don&apos;t Have an Account?{" "}
-            <Link
-              href={"/register"}
-              className={styles.container__content__link}
-            >
-              Sign Up Here
+            Already Have an Account?{" "}
+            <Link href={"/login"} className={styles.container__content__link}>
+              Login Here
             </Link>
           </p>
           <Button
@@ -80,22 +93,12 @@ const LoginPage = () => {
             className={styles.container__content__button}
             disabled={isLoading}
           >
-            Login
+            Register
           </Button>
-          <button
-            type="button"
-            className={styles.container__content__button__google}
-            disabled={isLoading}
-          >
-            <FcGoogle
-              className={styles.container__content__button__google__icon}
-            />{" "}
-            Login With Google
-          </button>
         </form>
       </div>
     </div>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

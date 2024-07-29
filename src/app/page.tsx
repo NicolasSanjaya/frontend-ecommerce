@@ -1,45 +1,83 @@
 "use client";
 import { redirect, useRouter } from "next/navigation";
-import styles from "./page.module.css";
+import styles from "./Page.module.scss";
+import Navbar from "@/components/Navbar/Navbar";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "@/context/user";
+import MainSlideShow from "@/components/MainSlideShow/MainSlideShow";
+import Banner from "@/components/Banner/Banner";
+import CategoryBadge from "@/components/CategoryBadge/CategoryBadge";
 
 export default function Home() {
   const router = useRouter();
+  const { user, setUser }: any = useContext(UserContext);
 
-  const handleGetUsers = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:4000/users", {
-        credentials: "include",
-      });
-      console.log(response);
-      const data = await response.json();
-      console.log(data);
-      if (data.statusCode === 400) {
-        // router.push("/login");W
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    console.log(user);
+  }, [user]);
 
-  const handleLogout = async () => {
-    const response = await fetch("http://localhost:4000/user/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-    const data = await response.json();
-    console.log(data);
-  };
   return (
     <main className={styles.main}>
-      <h1>Home</h1>
-
-      <form onSubmit={handleLogout}>
-        <button type="submit">Logout</button>
-      </form>
-      <form onSubmit={handleGetUsers}>
-        <button type="submit">Get Users</button>
-      </form>
+      <div className={styles.main__navbar}>
+        <Navbar />
+      </div>
+      <div className={styles.main__content}>
+        <div className={styles.main__content__banner}>
+          <MainSlideShow />
+        </div>
+        <div className={styles.main__content__category}>
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+          <CategoryBadge
+            image="/images/background2.jpg"
+            name="Category 1"
+            link="/"
+          />
+        </div>
+      </div>
     </main>
   );
 }

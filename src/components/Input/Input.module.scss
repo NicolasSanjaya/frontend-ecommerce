@@ -1,0 +1,55 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0;
+  position: relative;
+  &__icon {
+    font-size: 16px;
+    font-weight: 500;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+  &__label {
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    left: 35px;
+    top: 10px;
+    opacity: 0.5;
+    z-index: 1;
+  }
+  &__input {
+    padding: 10px;
+    padding-left: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  input:focus + &__icon,
+  input:not(:placeholder-shown) + &__icon {
+    top: 10px;
+    left: -20px;
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 1;
+  }
+  input:focus + &__label,
+  input:not(:placeholder-shown) + &__label {
+    top: -20px;
+    left: 0;
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 1;
+  }
+  input:invalid {
+    border: 2px solid red;
+  }
+  &__visible {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+  }
+}

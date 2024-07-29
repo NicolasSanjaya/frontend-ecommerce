@@ -4,13 +4,14 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
   &__title {
     font-size: 24px;
     font-weight: 600;
   }
   &__content {
+    padding: 40px 10px;
     width: 30%;
-    height: 60%;
     margin: 40px;
     display: flex;
     flex-direction: column;

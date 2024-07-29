@@ -1,0 +1,23 @@
+.main {
+  width: 100%;
+
+  &__content {
+    max-width: 100%;
+    padding: 30px 30px 0 30px;
+    &__banner {
+      background-color: var(--secondary);
+      padding: 30px;
+      border-radius: 5px;
+    }
+    &__category {
+      margin: 30px 0 20px 0;
+      // display: flex;
+      // justify-content: space-between;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+
+      flex-wrap: wrap;
+    }
+  }
+}

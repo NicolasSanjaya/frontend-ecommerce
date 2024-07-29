@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export function middleware(request: NextRequest) {
   const cookie = cookies().get("jwt")?.value;
 
-  if (!cookie) {
+  if (!cookie && request.nextUrl.pathname.startsWith("/products")) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
   return NextResponse.next();

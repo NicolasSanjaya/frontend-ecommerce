@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background-color: var(--secondary);
+  border-radius: 15px;
+  box-shadow: 1px 1px 1px #858585;
+  &:hover {
+    cursor: pointer;
+    translate: 0 -10px;
+  }
+  &__image {
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  &__name {
+    &__text {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+}
