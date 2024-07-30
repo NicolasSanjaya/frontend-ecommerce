@@ -12,9 +12,9 @@
     translate: 0 -10px;
   }
   &__image {
-    img {
-      border-radius: 50%;
-      object-fit: cover;
+    &__icon {
+      font-size: 36px;
+      text-align: center;
     }
   }
   &__name {
