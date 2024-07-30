@@ -2,20 +2,24 @@ import React from "react";
 import styles from "./CategoryBadge.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { IconType } from "react-icons";
 
 type PropTypes = {
-  image: string;
+  icon: React.ReactNode;
   name: string;
   link: string;
+  className?: string;
 };
 
 const CategoryBadge = (props: PropTypes) => {
-  const { image, name, link } = props;
+  const { icon, name, link, className } = props;
   return (
     <div className={styles.container}>
       <Link href={link}>
         <div className={styles.container__image}>
-          <Image src={image} alt={name} width={100} height={100} />
+          <div className={`${styles.container__image__icon} ${className}`}>
+            {icon}
+          </div>
         </div>
         <div className={styles.container__name}>
           <p className={styles.container__name__text}>{name}</p>

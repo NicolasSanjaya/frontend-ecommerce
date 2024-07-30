@@ -36,8 +36,11 @@ const MainSlideShow = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     lazyload: true,
+    autoplay: true,
+    autoplaySpeed: 3000,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    rtl: true,
     appendDots: (dots: any) => (
       <div style={{ marginBottom: "30px" }}>
         <ul>{dots}</ul>

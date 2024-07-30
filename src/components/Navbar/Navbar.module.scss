@@ -79,6 +79,77 @@
       display: flex;
       gap: 30px;
       font-size: 20px;
+      &__cart {
+        position: relative;
+        &:hover {
+          cursor: pointer;
+        }
+        &__count {
+          position: absolute;
+          right: -10px;
+          top: -10px;
+          font-size: 16px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--secondary);
+        }
+      }
+      &__notification {
+        position: relative;
+        &:hover {
+          cursor: pointer;
+        }
+        &__count {
+          position: absolute;
+          right: -10px;
+          top: -10px;
+          font-size: 16px;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: var(--secondary);
+        }
+      }
+      &__language {
+        position: relative;
+        &__items {
+          display: flex;
+          position: absolute;
+          background-color: var(--secondary);
+          border: 1px solid var(--primary);
+          border-radius: 10px;
+          color: var(--primary);
+
+          flex-direction: column;
+          right: -50px;
+          top: 25px;
+          &__item {
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 500;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            &:hover {
+              cursor: pointer;
+              opacity: 0.5;
+              background-color: #ddd;
+            }
+          }
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

@@ -19,5 +19,50 @@
 
       flex-wrap: wrap;
     }
+    &__recommendation {
+      margin: 30px 0 20px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 20px;
+    }
+  }
+  &__arrow {
+    width: 50px;
+    z-index: 999;
+    height: 50px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--secondary);
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    scale: 1;
+    opacity: 1;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &__arrowHidden {
+    width: 50px;
+    z-index: 999;
+    height: 50px;
+    cursor: pointer;
+    background-color: var(--primary);
+    color: var(--secondary);
+    position: fixed;
+    right: 20px;
+    bottom: -50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    scale: 0;
+    opacity: 0;
   }
 }

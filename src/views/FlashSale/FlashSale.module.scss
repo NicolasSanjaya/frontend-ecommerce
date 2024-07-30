@@ -1,0 +1,131 @@
+.container {
+  margin-top: 80px;
+  margin-bottom: 80px;
+  &__title {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  &__countdown {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 450;
+    display: flex;
+    gap: 10px;
+    span {
+      padding: 10px;
+      background-color: var(--secondary);
+      border-radius: 5px;
+    }
+  }
+  &__product {
+    margin-top: 50px;
+    background-color: var(--secondary);
+    padding: 40px 20px 40px 20px;
+    border-radius: 5px;
+    &__item {
+      margin-left: 10px;
+      margin-right: 10px;
+      max-width: fit-content;
+      height: 100%;
+      color: var(--primary);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      &:hover {
+        cursor: pointer;
+      }
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 5px;
+      }
+
+      &__name {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 500;
+        text-align: start;
+      }
+
+      &__price {
+        margin-top: 10px;
+        font-size: 20px;
+        font-weight: 600;
+      }
+      &__originalPrice {
+        text-decoration: line-through;
+        opacity: 0.5;
+      }
+      &__rating {
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        justify-content: space-between;
+        align-items: center;
+        &__star {
+          display: flex;
+          align-items: center;
+          gap: 3px;
+          &__icon {
+            font-size: 24px;
+            color: #f1c40f;
+          }
+        }
+      }
+    }
+  }
+}
+.prev {
+  cursor: pointer;
+  z-index: 1;
+  position: absolute;
+  top: 50%;
+  opacity: 0.5;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: var(--primary);
+  display: block;
+  left: 0;
+  svg {
+    font-size: 24px;
+    font-weight: 800;
+    scale: 0.75;
+    width: 100%;
+    height: 100%;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  opacity: 0.5;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: var(--primary);
+  right: 0;
+  z-index: 1;
+
+  svg {
+    font-size: 24px;
+    font-weight: 800;
+    scale: 0.75;
+    width: 100%;
+    height: 100%;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+}

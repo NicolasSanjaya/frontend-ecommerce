@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import styles from "./Navbar.module.scss";
 import Link from "next/link";
 import { UserContext } from "@/context/user";
@@ -22,10 +22,28 @@ const links = [
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
+  const [isShowLanguage, setIsShowLanguage] = useState<boolean>(false);
+  const languageRef = useRef<HTMLDivElement>(null);
+
+  const handleClickOutside = (e: any) => {
+    if (isShowLanguage === true) {
+      if (languageRef.current && !languageRef.current.contains(e.target)) {
+        languageRef.current.style.display = "none";
+      }
+    }
+    e.stopPropagation();
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [languageRef, isShowLanguage]);
   useEffect(() => {
     console.log(user);
   }, [user]);
-  const handleLogout = async () => {
+  const handleLogout = async (e: React.MouseEvent) => {
+    e.preventDefault();
     const response = await fetch("http://localhost:4000/user/logout", {
       method: "POST",
       credentials: "include",
@@ -64,7 +82,7 @@ const Navbar = () => {
                 </Link>
                 <button
                   type="button"
-                  onClick={() => handleLogout()}
+                  onClick={handleLogout}
                   className={styles.container__profile__icon__items__logout}
                 >
                   Logout
@@ -75,9 +93,48 @@ const Navbar = () => {
         ) : (
           <>
             <div className={styles.container__profile__info}>
-              <FiShoppingCart />
-              <IoMdNotificationsOutline />
-              <GrLanguage />
+              <div className={styles.container__profile__info__cart}>
+                <FiShoppingCart />
+                <div className={styles.container__profile__info__cart__count}>
+                  0
+                </div>
+              </div>
+              <div className={styles.container__profile__info__notification}>
+                <IoMdNotificationsOutline />
+                <div className={styles.container__profile__info__cart__count}>
+                  0
+                </div>
+              </div>
+              <div
+                className={styles.container__profile__info__language}
+                onClick={(e) => {
+                  setIsShowLanguage(!isShowLanguage);
+                  handleClickOutside(e);
+                }}
+              >
+                <GrLanguage />
+                {isShowLanguage && (
+                  <div
+                    ref={languageRef}
+                    className={styles.container__profile__info__language__items}
+                  >
+                    <div
+                      className={
+                        styles.container__profile__info__language__items__item
+                      }
+                    >
+                      Indonesia
+                    </div>
+                    <div
+                      className={
+                        styles.container__profile__info__language__items__item
+                      }
+                    >
+                      English
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <Link href="/login" className={styles.container__profile__login}>
               Login
