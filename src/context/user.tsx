@@ -1,6 +1,6 @@
 "use client";
 import { UserType } from "@/types/User";
-import { createContext, FC, useState } from "react";
+import { createContext, FC, useEffect, useState } from "react";
 
 type UserContextType = {
   user: UserType;

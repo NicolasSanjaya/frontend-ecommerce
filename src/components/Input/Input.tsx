@@ -2,38 +2,36 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Input.module.scss";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
+import { useForm } from "react-hook-form";
 
 type PropTypes = {
+  id: string;
   type: string;
   text: string;
   name: string;
   icon?: React.ReactNode;
+  register?: any;
 };
 
 const Input = (props: PropTypes) => {
-  const { type, text, name, icon } = props;
+  const { type, text, name, icon, id, register, ...rest } = props;
+
   const [isPassword, setIsPassword] = useState(false);
-  const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
     type === "password" && setIsPassword(true);
   }, [type]);
+
   return (
     <div className={styles.container}>
       <input
-        name={name}
-        type={type === "password" ? (isPassword ? "password" : "text") : type}
         className={styles.container__input}
         placeholder=""
-        autoComplete="off"
-        ref={ref}
+        id={id}
+        type={type === "password" ? (isPassword ? "password" : "text") : type}
+        {...register(name)}
+        {...rest}
       />
-      <label
-        htmlFor={name}
-        className={styles.container__label}
-        onClick={() => {
-          ref?.current?.focus();
-        }}
-      >
+      <label htmlFor={id} className={styles.container__label}>
         {text}
       </label>
       <div className={styles.container__icon}>{icon}</div>
