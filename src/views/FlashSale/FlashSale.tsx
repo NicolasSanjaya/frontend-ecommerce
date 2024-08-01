@@ -43,6 +43,7 @@ const FlashSale = () => {
 
   // Set the initial state
   const [timeLeft, setTimeLeft] = useState(targetDate - new Date().getTime());
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     // Update the countdown every second
@@ -61,6 +62,10 @@ const FlashSale = () => {
     return () => clearInterval(intervalId);
   }, [targetDate]);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   let days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
   let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
@@ -72,10 +77,10 @@ const FlashSale = () => {
     <div className={styles.container}>
       <h2 className={styles.container__title}>FlashSale</h2>
       <div className={styles.container__countdown}>
-        <span>{days}d</span>
-        <span>{hours}h</span>
-        <span>{minutes}m</span>
-        <span>{seconds}s</span>
+        <span>{isClient ? days : "0"}d</span>
+        <span>{isClient ? hours : "0"}h</span>
+        <span>{isClient ? minutes : "0"}m</span>
+        <span>{isClient ? seconds : "0"}s</span>
       </div>
       <div className={`slider-container ${styles.container__product}`}>
         <Slider {...settings}>

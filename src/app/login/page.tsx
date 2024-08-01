@@ -10,12 +10,26 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-toastify";
 import { UserContext } from "@/context/user";
-import { UserType } from "@/types/User";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+});
+
+type LoginType = z.infer<typeof loginSchema>;
 
 const LoginPage = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { user, setUser }: any = useContext(UserContext);
+
+  const { register, handleSubmit, formState, reset } = useForm<LoginType>({
+    resolver: zodResolver(loginSchema),
+  });
+
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -38,11 +52,13 @@ const LoginPage = () => {
       const data = await response.json();
       setUser(data.data);
       setIsLoading(false);
-      toast.success(data.message);
-
       console.log(data);
+
       if (data.statusCode === 200) {
+        toast.success(data.message);
         router.push("/");
+      } else {
+        toast.error(data.message);
       }
     } catch (error: Error | any) {
       setIsLoading(false);
@@ -51,21 +67,69 @@ const LoginPage = () => {
     }
   };
 
+  const onSubmit = handleSubmit(async (values) => {
+    const email = values.email;
+    const password = values.password;
+
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:4000/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+      const data = await response.json();
+      setUser(data.data);
+      setIsLoading(false);
+      console.log(data);
+      if (data.statusCode === 200) {
+        toast.success(data.message);
+        router.push("/");
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error: Error | any) {
+      setIsLoading(false);
+      toast.error(error.message);
+      console.log(error);
+    } finally {
+      reset();
+    }
+  });
+
   return (
     <div className={styles.container}>
       <h1 className={styles.container__title}>Login</h1>
       <div className={styles.container__content}>
-        <form
-          onSubmit={handleLogin}
-          className={styles.container__content__form}
-        >
-          <Input text="Email" type="email" name="email" icon={<MdEmail />} />
+        <form onSubmit={onSubmit} className={styles.container__content__form}>
           <Input
+            id="email"
+            text="Email"
+            type="email"
+            icon={<MdEmail />}
+            name="email"
+            register={register}
+          />
+          {formState.errors.email && (
+            <p className={styles.error}>{formState.errors.email.message}</p>
+          )}
+          <Input
+            id="password"
             text="Password"
             type="password"
             name="password"
             icon={<RiLockPasswordFill />}
+            register={register}
           />
+          {formState.errors.password && (
+            <p className={styles.error}>{formState.errors.password.message}</p>
+          )}
           <p>
             Don&apos;t Have an Account?{" "}
             <Link

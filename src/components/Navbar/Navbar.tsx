@@ -22,6 +22,8 @@ const links = [
 
 const Navbar = () => {
   const { user, setUser } = useContext(UserContext);
+  console.log(user);
+
   const [isShowLanguage, setIsShowLanguage] = useState<boolean>(false);
   const languageRef = useRef<HTMLDivElement>(null);
 
