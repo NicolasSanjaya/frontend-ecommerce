@@ -71,8 +71,6 @@ const FlashSale = () => {
   let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  console.log(seconds);
-
   return (
     <div className={styles.container}>
       <h2 className={styles.container__title}>FlashSale</h2>

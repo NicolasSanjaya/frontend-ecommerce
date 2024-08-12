@@ -59,14 +59,12 @@ const RegisterPage = () => {
       const data = await response.json();
       setIsLoading(false);
       toast.success("success");
-      console.log(data);
       if (data.statusCode === 200) {
         router.push("/login");
       }
     } catch (error: Error | any) {
       setIsLoading(false);
       toast.error(error.message);
-      console.log(error);
     } finally {
       setIsLoading(false);
       reset();
@@ -82,7 +80,6 @@ const RegisterPage = () => {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
-    console.log(password, confirmPassword);
 
     if (confirmPassword !== password) {
       toast.error("Password does not match");
@@ -109,14 +106,13 @@ const RegisterPage = () => {
       const data = await response.json();
       setIsLoading(false);
       toast.success("success");
-      console.log(data);
+
       if (data.statusCode === 200) {
         router.push("/login");
       }
     } catch (error: Error | any) {
       setIsLoading(false);
       toast.error(error.message);
-      console.log(error);
     }
     form.reset();
   };
