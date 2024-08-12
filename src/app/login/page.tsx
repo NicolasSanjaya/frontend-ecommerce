@@ -30,43 +30,6 @@ const LoginPage = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email");
-    const password = formData.get("password");
-
-    try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:4000/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      });
-      const data = await response.json();
-      setUser(data.data);
-      setIsLoading(false);
-      console.log(data);
-
-      if (data.statusCode === 200) {
-        toast.success(data.message);
-        router.push("/");
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error: Error | any) {
-      setIsLoading(false);
-      toast.error(error.message);
-      console.log(error);
-    }
-  };
-
   const onSubmit = handleSubmit(async (values) => {
     const email = values.email;
     const password = values.password;
@@ -87,18 +50,19 @@ const LoginPage = () => {
       const data = await response.json();
       setUser(data.data);
       setIsLoading(false);
-      console.log(data);
+      // localStorage.setItem("user", JSON.stringify(data.data));
+
       if (data.statusCode === 200) {
-        toast.success(data.message);
         router.push("/");
+        toast.success(data.message);
       } else {
         toast.error(data.message);
       }
     } catch (error: Error | any) {
       setIsLoading(false);
       toast.error(error.message);
-      console.log(error);
     } finally {
+      setIsLoading(false);
       reset();
     }
   });

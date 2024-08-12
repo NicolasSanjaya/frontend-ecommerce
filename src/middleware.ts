@@ -6,9 +6,14 @@ export function middleware(request: NextRequest) {
 
   if (!cookie && request.nextUrl.pathname.startsWith("/products")) {
     return NextResponse.redirect(new URL("/login", request.nextUrl));
+  } else if (
+    (cookie && request.nextUrl.pathname.startsWith("/login")) ||
+    request.nextUrl.pathname.startsWith("/register")
+  ) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
   return NextResponse.next();
 }
 export const config = {
-  matcher: ["/products"],
+  matcher: ["/products", "/login", "/register"],
 };
