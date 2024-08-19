@@ -5,7 +5,7 @@ import "./globals.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { UserProvider } from "@/context/user";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import Loading from "./loading";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from "next/navigation";

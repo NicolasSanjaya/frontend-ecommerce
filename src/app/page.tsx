@@ -27,17 +27,16 @@ export default function Home() {
   const scroll = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
 
-  //hydration
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   const handleScrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   };
+  //hydration
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {

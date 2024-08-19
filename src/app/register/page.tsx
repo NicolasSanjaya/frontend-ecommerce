@@ -71,52 +71,6 @@ const RegisterPage = () => {
     }
   });
 
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    const form = e.currentTarget;
-
-    const name = formData.get("name");
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const confirmPassword = formData.get("confirmPassword");
-
-    if (confirmPassword !== password) {
-      toast.error("Password does not match");
-      form.reset();
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:4000/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          phone: "",
-          address: "",
-        }),
-      });
-      const data = await response.json();
-      setIsLoading(false);
-      toast.success("success");
-
-      if (data.statusCode === 200) {
-        router.push("/login");
-      }
-    } catch (error: Error | any) {
-      setIsLoading(false);
-      toast.error(error.message);
-    }
-    form.reset();
-  };
-
   return (
     <div className={styles.container}>
       <h1 className={styles.container__title}>Register</h1>

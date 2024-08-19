@@ -8,15 +8,7 @@ export const metadata: Metadata = {
 };
 
 const ProfileLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <>
-      <Head>
-        <title>Profile</title>
-      </Head>
-      <h1>test</h1>
-      {children}
-    </>
-  );
+  return <div>{children}</div>;
 };
 
 export default ProfileLayout;

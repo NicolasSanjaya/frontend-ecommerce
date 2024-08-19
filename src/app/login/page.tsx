@@ -53,7 +53,7 @@ const LoginPage = () => {
       // localStorage.setItem("user", JSON.stringify(data.data));
 
       if (data.statusCode === 200) {
-        router.push("/");
+        router.replace("/");
         toast.success(data.message);
       } else {
         toast.error(data.message);
@@ -66,6 +66,10 @@ const LoginPage = () => {
       reset();
     }
   });
+
+  const loginWithGoogle = async () => {
+    window.open("http://localhost:4000/auth/google", "_self");
+  };
 
   return (
     <div className={styles.container}>
@@ -114,6 +118,7 @@ const LoginPage = () => {
             type="button"
             className={styles.container__content__button__google}
             disabled={isLoading}
+            onClick={loginWithGoogle}
           >
             <FcGoogle
               className={styles.container__content__button__google__icon}
