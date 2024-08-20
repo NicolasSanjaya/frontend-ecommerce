@@ -11,10 +11,11 @@ type PropTypes = {
   name: string;
   icon?: React.ReactNode;
   register?: any;
+  defaultValue?: string;
 };
 
 const Input = (props: PropTypes) => {
-  const { type, text, name, icon, id, register, ...rest } = props;
+  const { type, text, name, icon, id, register, defaultValue, ...rest } = props;
 
   const [isPassword, setIsPassword] = useState(false);
   useEffect(() => {
@@ -28,6 +29,7 @@ const Input = (props: PropTypes) => {
         placeholder=""
         id={id}
         type={type === "password" ? (isPassword ? "password" : "text") : type}
+        defaultValue={defaultValue}
         {...register(name)}
         {...rest}
       />

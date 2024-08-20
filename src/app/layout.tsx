@@ -4,8 +4,8 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { UserProvider } from "@/context/user";
-import { Suspense } from "react";
+import { UserContext, UserProvider } from "@/context/user";
+import { Suspense, useContext, useEffect, useState } from "react";
 import Loading from "./loading";
 import Navbar from "@/components/Navbar/Navbar";
 import { usePathname } from "next/navigation";
@@ -32,6 +32,12 @@ export default function RootLayout({
 }>) {
   const pathname = usePathname();
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Ini hanya dijalankan di client
+  }, []);
+
   return (
     <html lang="en">
       <head>
@@ -52,19 +58,24 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className={poppins.className}>
-        <ToastContainer
-          autoClose={3000}
-          position="top-right"
-          theme="light"
-          closeOnClick={false}
-          pauseOnHover={false}
-        />
-        <UserProvider>
+        {isClient === false ? (
+          <Loading />
+        ) : (
           <Suspense fallback={<Loading />}>
-            {!dissableNavbar.includes(pathname) && <Navbar />}
-            {children}
+            <ToastContainer
+              autoClose={3000}
+              position="top-right"
+              theme="light"
+              closeOnClick={false}
+              pauseOnHover={false}
+            />
+
+            <UserProvider>
+              {!dissableNavbar.includes(pathname) && <Navbar />}
+              {children}
+            </UserProvider>
           </Suspense>
-        </UserProvider>
+        )}
       </body>
     </html>
   );

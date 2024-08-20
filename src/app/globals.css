@@ -7,6 +7,11 @@
   transition: 0.5s ease-in-out;
 }
 
+input::file-selector-button,
+input::-webkit-file-upload-button {
+  display: none;
+}
+
 body {
   background-color: #dddd;
 }
