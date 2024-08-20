@@ -119,7 +119,13 @@ const Navbar = () => {
               </div>
             </div>
             <Image
-              src={user.image ? (user as UserType).image! : "/images/user.png"}
+              src={
+                user.image !== null
+                  ? user.type === null
+                    ? `http://localhost:4000/${user.image}`
+                    : (user as UserType).image!
+                  : "/images/user.png"
+              }
               alt="user image"
               width={50}
               height={50}

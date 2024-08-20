@@ -36,7 +36,9 @@
           position: relative;
           &__image {
             border-radius: 50%;
+            border: 1px solid #000;
           }
+
           &__dots {
             opacity: 0;
             display: flex;
@@ -52,9 +54,10 @@
             font-size: 48px;
             font-weight: bold;
           }
-          &:hover > &__dots {
+          :hover > &__dots {
             opacity: 0.5;
             cursor: pointer;
+            z-index: 10;
           }
           &__input {
             opacity: 0;

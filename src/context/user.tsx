@@ -16,6 +16,7 @@ const UserContext = createContext<UserContextType>({
     name: "",
     email: "",
     id: "",
+    image: "",
     phone: "",
     address: "",
     createdAt: "",
@@ -32,13 +33,27 @@ const UserProvider: FC<{ children: React.ReactNode }> = ({
   children: React.ReactNode;
 }) => {
   const [user, setUser] = useState(() => {
-    const savedUser = window?.localStorage?.getItem("user");
-    return savedUser ? JSON.parse(savedUser) : null;
+    if (typeof window !== "undefined") {
+      const savedUser = window?.localStorage?.getItem("user");
+      return savedUser ? JSON.parse(savedUser) : null;
+    }
   });
-  const [loading, setIsLoading] = useState(true);
+  const [loading, setIsLoading] = useState(false);
   const router = useRouter();
 
+  if (localStorage.getItem("user") == "undefined") {
+    localStorage.removeItem("user");
+  }
+
+  console.log(localStorage.getItem("user"));
+
   useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(user));
+    console.log(user);
+
+    if (localStorage.getItem("user") == "undefined") {
+      localStorage.removeItem("user");
+    }
     window.scrollTo(0, 0);
   }, [user]);
   useEffect(() => {
@@ -50,9 +65,10 @@ const UserProvider: FC<{ children: React.ReactNode }> = ({
           credentials: "include",
         });
         const data = await response.json();
+
         setUser(data.data);
-        data?.data && localStorage.setItem("user", JSON.stringify(data?.data));
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       } finally {
         setIsLoading(false);

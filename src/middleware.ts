@@ -10,9 +10,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   } else if (cookie && request.nextUrl.pathname.startsWith("/register")) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
+  } else if (!cookie && request.nextUrl.pathname.startsWith("/profile")) {
+    return NextResponse.redirect(new URL("/login", request.nextUrl));
   }
   return NextResponse.next();
 }
 export const config = {
-  matcher: ["/", "/products", "/login", "/register"],
+  matcher: ["/", "/products", "/login", "/register", "/profile"],
 };
